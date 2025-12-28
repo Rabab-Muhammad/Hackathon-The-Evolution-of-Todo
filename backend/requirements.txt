@@ -1,0 +1,26 @@
+# Phase II Todo Application Backend Dependencies
+# Reference: @specs/002-fullstack-web-app/research.md
+
+# Web Framework
+fastapi>=0.115.0
+uvicorn[standard]>=0.34.0
+
+# Database ORM
+sqlmodel>=0.0.22
+asyncpg>=0.30.0
+psycopg2-binary>=2.9.10
+
+# Authentication
+pyjwt>=2.10.0
+bcrypt>=4.2.0
+
+# Configuration
+python-dotenv>=1.0.1
+
+# Validation
+pydantic[email]>=2.10.0
+
+# Development
+pytest>=8.3.0
+pytest-asyncio>=0.24.0
+httpx>=0.28.0

@@ -1,150 +1,185 @@
-# Evolution of Todo - Phase I
+# Evolution of Todo
 
-An in-memory Python console application for basic task management.
+A multi-phase todo application demonstrating evolution from console app to full-stack web application.
 
-## Overview
+## Current Phase: II - Full-Stack Web Application
 
-Phase I of the Evolution of Todo project implements five core operations:
+Full-stack multi-user todo application with Next.js frontend, FastAPI backend, and PostgreSQL database.
 
-1. **Add Task** - Create tasks with title (required) and description (optional)
+## Project Structure
+
+```
+hackathon-todo/
+├── frontend/           # Next.js 16+ with App Router
+├── backend/            # FastAPI with SQLModel
+├── src/                # Phase I console app (legacy)
+├── specs/              # Feature specifications
+├── docker-compose.yml  # Local development
+└── README.md           # This file
+```
+
+## Prerequisites
+
+- Node.js 18+
+- Python 3.11+
+- PostgreSQL (Neon recommended) or Docker
+
+## Quick Start
+
+### Option 1: Docker (Recommended)
+
+```bash
+# Create environment file
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env.local
+
+# Edit .env files with your configuration
+
+# Start all services
+docker-compose up -d
+
+# Access the application
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:8000
+# API Docs: http://localhost:8000/docs
+```
+
+### Option 2: Manual Setup
+
+#### Backend
+
+```bash
+cd backend
+
+# Create virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Create .env file
+cp .env.example .env
+# Edit .env with your DATABASE_URL and BETTER_AUTH_SECRET
+
+# Run migrations
+python -m src.db.migrate
+
+# Start server
+uvicorn src.main:app --reload --port 8000
+```
+
+#### Frontend
+
+```bash
+cd frontend
+
+# Install dependencies
+npm install
+
+# Create .env.local file
+cp .env.example .env.local
+# Edit .env.local with your configuration
+
+# Start development server
+npm run dev
+```
+
+## Environment Variables
+
+### Backend (`backend/.env`)
+
+```env
+DATABASE_URL=postgresql://user:password@host/database
+BETTER_AUTH_SECRET=your-32-character-minimum-secret-key
+```
+
+### Frontend (`frontend/.env.local`)
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+BETTER_AUTH_SECRET=your-32-character-minimum-secret-key
+```
+
+**Important**: `BETTER_AUTH_SECRET` must be identical in both files.
+
+## API Endpoints
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| POST | /api/auth/signup | No | Register user |
+| POST | /api/auth/signin | No | Login user |
+| POST | /api/auth/signout | Yes | Logout user |
+| GET | /api/tasks | Yes | List tasks |
+| POST | /api/tasks | Yes | Create task |
+| GET | /api/tasks/{id} | Yes | Get task |
+| PUT | /api/tasks/{id} | Yes | Update task |
+| DELETE | /api/tasks/{id} | Yes | Delete task |
+| PATCH | /api/tasks/{id}/toggle | Yes | Toggle completion |
+
+## Testing
+
+### Backend Tests
+
+```bash
+cd backend
+pytest
+```
+
+### Frontend Tests
+
+```bash
+cd frontend
+npm test
+```
+
+## Verification Steps
+
+1. **Health Check**: `curl http://localhost:8000/api/health`
+2. **Register**: Navigate to `http://localhost:3000/signup`
+3. **Login**: Navigate to `http://localhost:3000/login`
+4. **Create Task**: Click "New Task" on dashboard
+5. **User Isolation**: Create second account, verify separate task lists
+
+## Specifications
+
+See `specs/002-fullstack-web-app/` for complete specifications:
+- `overview.md` - Project scope
+- `plan.md` - Implementation plan
+- `contracts/api-contract.md` - API specification
+
+---
+
+## Phase I Reference (Legacy)
+
+Phase I implemented a console-based todo application with in-memory storage.
+
+### Running Phase I
+
+```bash
+# Using UV (Recommended)
+uv run src/main.py
+
+# Direct Python
+python src/main.py
+```
+
+### Phase I Features
+
+1. **Add Task** - Create tasks with title and optional description
 2. **Delete Task** - Remove tasks by ID
 3. **Update Task** - Modify task title and/or description
 4. **View Tasks** - Display all tasks with status indicators
 5. **Mark Complete/Incomplete** - Toggle task completion status
 
-All tasks are stored in memory only - data is lost when the application exits.
+### Phase I Limitations
 
-## Requirements
-
-- Python 3.13 or higher
-- UV package manager
-
-## Setup
-
-```bash
-# Clone or navigate to the repository
-cd Todo-app-phase-1
-
-# Create virtual environment with UV
-uv venv
-
-# Activate virtual environment
-# On Linux/macOS:
-source .venv/bin/activate
-# On Windows:
-.venv\Scripts\activate
-
-# Install the package
-uv pip install -e .
-```
-
-## Running the Application
-
-### Option 1: Using UV (Recommended)
-
-```bash
-uv run src/main.py
-```
-
-### Option 2: Direct Python
-
-```bash
-python src/main.py
-```
-
-### Option 3: Installed Script
-
-After installation:
-
-```bash
-todo-app
-```
-
-## Usage
-
-The application presents an interactive menu:
-
-```
-=== Todo Application ===
-1. Add Task
-2. Delete Task
-3. Update Task
-4. View Tasks
-5. Mark Complete/Incomplete
-6. Exit
-
-Enter choice: _
-```
-
-### Example Workflow
-
-1. **Add a task**: Select option 1, enter title and optional description
-2. **View tasks**: Select option 4 to see all tasks with their status
-3. **Mark complete**: Select option 5, enter task ID to toggle status
-4. **Update task**: Select option 3, enter task ID and new values
-5. **Delete task**: Select option 2, enter task ID to remove
-
-### Status Indicators
-
-- `[X]` - Incomplete task
-- `[✓]` - Complete task
-
-## Project Structure
-
-```
-Todo-app-phase-1/
-├── src/
-│   ├── __init__.py
-│   ├── main.py              # Entry point
-│   ├── models/
-│   │   ├── __init__.py
-│   │   └── task.py          # Task entity
-│   ├── services/
-│   │   ├── __init__.py
-│   │   └── task_service.py  # Business logic
-│   ├── cli/
-│   │   ├── __init__.py
-│   │   ├── menu.py          # Main menu
-│   │   └── handlers.py      # Operation handlers
-│   ├── validators/
-│   │   ├── __init__.py
-│   │   └── input_validators.py
-│   └── exceptions/
-│       ├── __init__.py
-│       └── errors.py
-├── specs/                   # Feature specifications
-├── specs_history/           # Historical spec files
-├── pyproject.toml
-├── README.md
-└── CLAUDE.md               # Claude Code usage documentation
-```
-
-## Specifications
-
-All features are implemented according to the specifications in `/specs_history/phase_1/`:
-
-| Feature | Specification |
-|---------|---------------|
-| Add Task | `add_task.spec.md` |
-| Delete Task | `delete_task.spec.md` |
-| Update Task | `update_task.spec.md` |
-| View Tasks | `view_tasks.spec.md` |
-| Mark Complete | `mark_complete.spec.md` |
-
-## Validation Rules
-
-- **Title**: Required, 1-100 characters, cannot be empty or whitespace-only
-- **Description**: Optional, 0-500 characters
-- **Task ID**: Must be a positive integer that exists in the system
-
-## Phase I Limitations
-
-- Data is stored in memory only (no persistence)
-- No categories, tags, or priorities
-- No due dates
-- No search or filter functionality
+- Data stored in memory only (no persistence)
 - Single user only
+- No authentication
+
+---
 
 ## License
 
-MIT License
+MIT

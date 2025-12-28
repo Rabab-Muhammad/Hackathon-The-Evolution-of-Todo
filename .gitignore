@@ -54,3 +54,18 @@ htmlcov/
 
 # Logs
 *.log
+
+# Node.js / Frontend
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Docker
+*.pid
+*.seed
+
+# Phase II specific
+frontend/.env.local
+backend/.env

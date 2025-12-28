@@ -9,6 +9,8 @@ from .handlers import (
     handle_toggle_status,
 )
 
+from .colors import Colors, Emojis
+
 __all__ = [
     "run",
     "handle_add_task",

@@ -14,6 +14,14 @@ from src.cli.handlers import (
     handle_update_task,
     handle_toggle_status,
 )
+from src.cli.colors import (
+    title,
+    menu_option,
+    prompt,
+    error,
+    success,
+    Emojis,
+)
 
 
 def display_menu() -> None:
@@ -21,13 +29,13 @@ def display_menu() -> None:
 
     Per contracts/cli-interface.md Main Menu Contract Display.
     """
-    print("\n=== Todo Application ===")
-    print("1. Add Task")
-    print("2. Delete Task")
-    print("3. Update Task")
-    print("4. View Tasks")
-    print("5. Mark Complete/Incomplete")
-    print("6. Exit")
+    print(f"\n{title(f'{Emojis.APP_TITLE} === Todo Application === {Emojis.APP_TITLE}')}")
+    print(menu_option(1, f"{Emojis.ADD} Add Task"))
+    print(menu_option(2, f"{Emojis.DELETE}  Delete Task"))
+    print(menu_option(3, f"{Emojis.UPDATE}  Update Task"))
+    print(menu_option(4, f"{Emojis.VIEW} View Tasks"))
+    print(menu_option(5, f"{Emojis.TOGGLE} Mark Complete/Incomplete"))
+    print(menu_option(6, f"{Emojis.EXIT} Exit"))
     print()
 
 
@@ -41,11 +49,11 @@ def get_menu_choice() -> int:
     Re-prompts on invalid input per Common Patterns.
     """
     while True:
-        choice_input = input("Enter choice: ")
+        choice_input = input(prompt(f"{Emojis.PROMPT} Enter choice: "))
         try:
             return validate_menu_choice(choice_input)
         except ValidationError as e:
-            print(f"\n{e}")
+            print(f"\n{error(f'{Emojis.ERROR} {e}')}")
             print()
 
 
@@ -71,5 +79,5 @@ def run() -> None:
             handle_toggle_status()
         elif choice == 6:
             # Exit per contracts/cli-interface.md Exit Contract
-            print("\nGoodbye!")
+            print(f"\n{success(f'{Emojis.EXIT} Goodbye!')}\n")
             sys.exit(0)
