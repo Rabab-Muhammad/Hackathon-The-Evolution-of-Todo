@@ -69,3 +69,6 @@ next-env.d.ts
 # Phase II specific
 frontend/.env.local
 backend/.env
+
+# Don't ignore frontend lib folder (important!)
+ !frontend/src/lib/
