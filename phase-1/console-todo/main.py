@@ -3,8 +3,7 @@
 
 Evolution of Todo - Phase I: In-Memory Python Console App
 
-Run with: uv run src/main.py
-Or: python src/main.py (from repository root)
+Run with: cd phase-1/console-todo && python main.py
 
 Per Constitution Principle I: Spec-Driven Development
 All features implemented according to specifications in /specs_history/phase_1/
@@ -13,10 +12,10 @@ All features implemented according to specifications in /specs_history/phase_1/
 import sys
 import os
 
-# Add src directory to Python path for imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Add current directory to Python path for imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from src.cli.menu import run
+from cli.menu import run
 
 
 def main() -> None:

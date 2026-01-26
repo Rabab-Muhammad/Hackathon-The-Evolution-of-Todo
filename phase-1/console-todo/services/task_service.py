@@ -6,8 +6,8 @@ Implements CRUD operations with in-memory storage.
 
 from typing import Optional
 
-from src.models import Task, INCOMPLETE, COMPLETE
-from src.exceptions import TaskNotFoundError, EmptyTaskListError
+from models import Task, INCOMPLETE, COMPLETE
+from exceptions import TaskNotFoundError, EmptyTaskListError
 
 # In-memory storage per research.md Architecture Decisions
 _tasks: dict[int, Task] = {}

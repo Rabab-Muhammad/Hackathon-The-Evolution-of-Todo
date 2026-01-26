@@ -5,16 +5,16 @@ Per contracts/cli-interface.md Main Menu Contract and all spec files CLI Flow Ex
 
 import sys
 
-from src.validators import validate_menu_choice
-from src.exceptions import ValidationError
-from src.cli.handlers import (
+from validators import validate_menu_choice
+from exceptions import ValidationError
+from cli.handlers import (
     handle_add_task,
     handle_view_tasks,
     handle_delete_task,
     handle_update_task,
     handle_toggle_status,
 )
-from src.cli.colors import (
+from cli.colors import (
     title,
     menu_option,
     prompt,

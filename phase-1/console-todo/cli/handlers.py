@@ -3,8 +3,8 @@
 Per contracts/cli-interface.md Operation Contracts and all spec files CLI Flow Examples.
 """
 
-from src.models import INCOMPLETE, COMPLETE
-from src.services import (
+from models import INCOMPLETE, COMPLETE
+from services import (
     add_task,
     get_task,
     get_all_tasks,
@@ -13,9 +13,9 @@ from src.services import (
     update_task,
     toggle_status,
 )
-from src.validators import validate_task_id, validate_title, validate_description
-from src.exceptions import ValidationError, TaskNotFoundError
-from src.cli.colors import (
+from validators import validate_task_id, validate_title, validate_description
+from exceptions import ValidationError, TaskNotFoundError
+from cli.colors import (
     header,
     success,
     error,

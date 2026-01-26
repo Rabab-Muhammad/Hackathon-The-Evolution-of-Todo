@@ -4,7 +4,7 @@ Per contracts/cli-interface.md Validation Contract and all spec files
 Edge Cases & Validation Rules sections.
 """
 
-from src.exceptions import ValidationError
+from exceptions import ValidationError
 
 # Constants from data-model.md
 MAX_TITLE_LENGTH: int = 100

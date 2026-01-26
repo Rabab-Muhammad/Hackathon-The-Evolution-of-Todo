@@ -12,9 +12,10 @@ Full-stack multi-user todo application with Next.js frontend, FastAPI backend, a
 hackathon-todo/
 ├── frontend/           # Next.js 16+ with App Router
 ├── backend/            # FastAPI with SQLModel
-├── src/                # Phase I console app (legacy)
-├── specs/              # Feature specifications
-├── docker-compose.yml  # Local development
+├── phase-1/            # Phase I console app
+│   └── console-todo/   # Console-based todo application
+├── phase-2/            # Phase II full-stack app
+│   └── fullstack-web-app/ # Next.js + FastAPI + PostgreSQL
 └── README.md           # This file
 ```
 
@@ -157,11 +158,14 @@ Phase I implemented a console-based todo application with in-memory storage.
 ### Running Phase I
 
 ```bash
+# Navigate to Phase I directory
+cd phase-1/console-todo
+
 # Using UV (Recommended)
-uv run src/main.py
+uv run main.py
 
 # Direct Python
-python src/main.py
+python main.py
 ```
 
 ### Phase I Features
