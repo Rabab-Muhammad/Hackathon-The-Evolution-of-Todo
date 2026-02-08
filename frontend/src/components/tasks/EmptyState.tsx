@@ -12,10 +12,10 @@ interface EmptyStateProps {
 
 export function EmptyState({ onCreateNew }: EmptyStateProps) {
   return (
-    <div className="text-center py-12">
-      <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+    <div className="text-center py-8 sm:py-12 px-4">
+      <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
         <svg
-          className="w-8 h-8 text-gray-400"
+          className="w-7 h-7 sm:w-8 sm:h-8 text-gray-400"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -28,11 +28,11 @@ export function EmptyState({ onCreateNew }: EmptyStateProps) {
           />
         </svg>
       </div>
-      <h3 className="text-lg font-medium text-gray-900 mb-2">No tasks yet</h3>
-      <p className="text-gray-600 mb-6">
+      <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">No tasks yet</h3>
+      <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
         Get started by creating your first task.
       </p>
-      <Button variant="primary" onClick={onCreateNew}>
+      <Button variant="primary" onClick={onCreateNew} className="w-full sm:w-auto">
         Create Your First Task
       </Button>
     </div>

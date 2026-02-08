@@ -54,8 +54,13 @@ async function apiFetch<T>(
 
   // Check if response is an error
   if (!response.ok) {
-    const error = data as ErrorResponse;
-    throw new Error(error.error?.message || "An error occurred");
+    // Handle both error formats:
+    // 1. {"error": {"message": "..."}} - our standard format
+    // 2. {"detail": {"error": {"message": "..."}}} - FastAPI HTTPException format
+    const errorData = data as any;
+    const errorObj = errorData.error || errorData.detail?.error || errorData.detail;
+    const errorMessage = errorObj?.message || errorData.message || "An error occurred";
+    throw new Error(errorMessage);
   }
 
   return data as T;

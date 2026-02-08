@@ -28,15 +28,15 @@ export default function LoginPage() {
     <div className="min-h-screen flex flex-col">
       <Header showAuthLinks={false} />
 
-      <main className="flex-1 flex items-center justify-center px-4 py-12">
+      <main className="flex-1 flex items-center justify-center px-4 py-8 sm:py-12">
         <Card className="w-full max-w-md">
-          <h1 className="text-2xl font-bold text-center mb-6">
+          <h1 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6">
             Sign In
           </h1>
 
           <LoginForm />
 
-          <p className="mt-6 text-center text-gray-600">
+          <p className="mt-4 sm:mt-6 text-center text-sm sm:text-base text-gray-600">
             Don&apos;t have an account?{" "}
             <Link href="/signup" className="text-blue-600 hover:underline">
               Sign up

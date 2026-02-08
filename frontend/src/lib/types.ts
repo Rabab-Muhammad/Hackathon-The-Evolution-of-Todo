@@ -84,3 +84,45 @@ export function isErrorResponse(response: unknown): response is ErrorResponse {
     typeof (response as ErrorResponse).error === "object"
   );
 }
+
+// ============================================
+// Phase III: Chat Types
+// Reference: @specs/003-ai-chatbot/contracts/chat-api.yaml
+// ============================================
+
+// Conversation types
+export interface Conversation {
+  id: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+}
+
+// Message types
+export interface Message {
+  id: string;
+  user_id: string;
+  conversation_id: string;
+  role: "user" | "assistant";
+  content: string;
+  created_at: string;
+}
+
+// Chat request/response types
+export interface ChatRequest {
+  conversation_id?: string;
+  message: string;
+}
+
+export interface ToolCall {
+  tool: string;
+  input: Record<string, any>;
+  output: Record<string, any>;
+}
+
+export interface ChatResponse {
+  conversation_id: string;
+  response: string;
+  tool_calls: ToolCall[];
+}
+

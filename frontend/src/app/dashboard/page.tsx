@@ -7,6 +7,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Card } from "@/components/ui/Card";
@@ -133,19 +134,19 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       <Header />
 
-      <main className="flex-1 py-8">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">My Tasks</h1>
-            {!showForm && (
-              <Button variant="primary" onClick={handleCreateNewClick}>
-                New Task
-              </Button>
-            )}
+      <main className="flex-1 py-6 sm:py-8 lg:py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header with gradient */}
+          <div className="text-center mb-8 sm:mb-10 lg:mb-12">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-3">
+              My <span className="text-blue-600">Tasks</span>
+            </h1>
+            <p className="text-gray-600 text-base sm:text-lg px-4">
+              Organize and manage your tasks efficiently
+            </p>
           </div>
 
           {/* Error message */}
@@ -155,11 +156,38 @@ export default function DashboardPage() {
             </Alert>
           )}
 
+          {/* Action Buttons - Prominent */}
+          {!showForm && (
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+              <Button
+                variant="primary"
+                onClick={handleCreateNewClick}
+                className="w-full sm:w-auto px-6 sm:px-8 py-2.5 sm:py-3 text-base sm:text-lg shadow-lg hover:shadow-xl transition-shadow"
+              >
+                <svg className="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+                Create New Task
+              </Button>
+              <Link href="/chat" className="w-full sm:w-auto">
+                <Button
+                  variant="secondary"
+                  className="w-full px-6 sm:px-8 py-2.5 sm:py-3 text-base sm:text-lg shadow-lg hover:shadow-xl transition-shadow bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 border-0"
+                >
+                  <svg className="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                  </svg>
+                  AI Chatbot
+                </Button>
+              </Link>
+            </div>
+          )}
+
           {/* Task form modal */}
           {showForm && (
-            <Card className="mb-6">
-              <h2 className="text-lg font-semibold mb-4">
-                {editingTask ? "Edit Task" : "Create New Task"}
+            <Card className="mb-6 sm:mb-8 shadow-xl border-2 border-blue-100">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-gray-900">
+                {editingTask ? "✏️ Edit Task" : "✨ Create New Task"}
               </h2>
               <TaskForm
                 task={editingTask}
@@ -172,26 +200,34 @@ export default function DashboardPage() {
 
           {/* Task list */}
           {loading ? (
-            <div className="py-12">
+            <div className="py-12 sm:py-16 lg:py-20">
               <LoadingSpinner size="large" />
-              <p className="text-center text-gray-600 mt-4">Loading tasks...</p>
+              <p className="text-center text-gray-600 mt-4 sm:mt-6 text-base sm:text-lg px-4">Loading your tasks...</p>
             </div>
           ) : (
-            <TaskList
-              tasks={tasks}
-              onToggle={handleToggleTask}
-              onEdit={handleEditClick}
-              onDelete={handleDeleteTask}
-              onCreateNew={handleCreateNewClick}
-            />
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 border border-gray-100">
+              <TaskList
+                tasks={tasks}
+                onToggle={handleToggleTask}
+                onEdit={handleEditClick}
+                onDelete={handleDeleteTask}
+                onCreateNew={handleCreateNewClick}
+              />
+            </div>
           )}
 
-          {/* Task count */}
+          {/* Task count with better styling */}
           {!loading && tasks.length > 0 && (
-            <p className="text-sm text-gray-500 mt-4 text-center">
-              {tasks.filter((t) => t.completed).length} of {tasks.length} tasks
-              completed
-            </p>
+            <div className="mt-6 sm:mt-8 text-center">
+              <div className="inline-flex items-center gap-2 bg-blue-50 px-4 sm:px-6 py-2 sm:py-3 rounded-full">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="text-blue-900 font-medium text-sm sm:text-base">
+                  {tasks.filter((t) => t.completed).length} of {tasks.length} tasks completed
+                </span>
+              </div>
+            </div>
           )}
         </div>
       </main>

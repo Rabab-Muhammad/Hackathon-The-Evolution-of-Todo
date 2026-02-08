@@ -108,11 +108,11 @@ export function TaskForm({ task, onSubmit, onCancel, loading = false }: TaskForm
         )}
       </div>
 
-      <div className="flex gap-3 justify-end">
-        <Button type="button" variant="secondary" onClick={onCancel} disabled={loading}>
+      <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 sm:justify-end">
+        <Button type="button" variant="secondary" onClick={onCancel} disabled={loading} className="w-full sm:w-auto">
           Cancel
         </Button>
-        <Button type="submit" variant="primary" loading={loading}>
+        <Button type="submit" variant="primary" loading={loading} className="w-full sm:w-auto">
           {isEditing ? "Save Changes" : "Create Task"}
         </Button>
       </div>
