@@ -1,5 +1,0 @@
-The frontend application has been successfully deployed to Vercel!
-
-You can access it at: https://ai-chatbot-frontend-cz63p19wt-rabab-muhammads-projects.vercel.app
-
-Please let me know if you have any further instructions or if you'd like me to perform any other tasks.
