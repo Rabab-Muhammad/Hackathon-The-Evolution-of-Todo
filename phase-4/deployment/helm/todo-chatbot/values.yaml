@@ -31,7 +31,7 @@ frontend:
     nodePort: 30080
 
   env:
-    NEXT_PUBLIC_API_URL: http://localhost:30081
+    NEXT_PUBLIC_API_URL: https://rabab-muhammad-todo-ai-chatbot.hf.space
 
   livenessProbe:
     enabled: true
