@@ -1,0 +1,43 @@
+# Deployment .gitignore
+# Exclude sensitive configuration files from version control
+
+# Environment-specific values files (contain secrets)
+helm/todo-chatbot/values-dev.yaml
+helm/todo-chatbot/values-staging.yaml
+helm/todo-chatbot/values-prod.yaml
+
+# Kubernetes secrets (if generated locally)
+*.secret.yaml
+secrets/
+
+# Temporary files
+*.tmp
+*.log
+*.swp
+*.swo
+*~
+
+# AI tool outputs
+AI-COMMANDS.md.tmp
+
+# Deployment logs
+deployment-logs/
+*.deployment.log
+
+# Helm chart packages
+*.tgz
+
+# Docker build cache
+.docker/
+
+# Minikube configuration (if stored locally)
+.minikube/
+kubeconfig*
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

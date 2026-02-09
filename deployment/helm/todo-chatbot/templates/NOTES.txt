@@ -1,0 +1,87 @@
+Thank you for installing {{ .Chart.Name }}!
+
+Your release is named {{ .Release.Name }}.
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get all {{ .Release.Name }}
+
+=============================================================================
+= Todo Chatbot - AI-Powered Task Management                                =
+=============================================================================
+
+Your application has been deployed to Kubernetes!
+
+{{- if .Values.frontend.enabled }}
+
+FRONTEND ACCESS:
+{{- if eq .Values.frontend.service.type "NodePort" }}
+  URL: http://localhost:{{ .Values.frontend.service.nodePort }}
+
+  If using Minikube, you may need to use:
+  $ minikube service {{ include "todo-chatbot.fullname" . }}-frontend --url
+{{- else if eq .Values.frontend.service.type "LoadBalancer" }}
+  NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+
+  Watch the status with:
+  $ kubectl get svc {{ include "todo-chatbot.fullname" . }}-frontend -w
+{{- end }}
+{{- end }}
+
+{{- if .Values.backend.enabled }}
+
+BACKEND API ACCESS:
+{{- if eq .Values.backend.service.type "NodePort" }}
+  API URL: http://localhost:{{ .Values.backend.service.nodePort }}
+  API Docs: http://localhost:{{ .Values.backend.service.nodePort }}/docs
+  Health Check: http://localhost:{{ .Values.backend.service.nodePort }}/api/health
+
+  If using Minikube, you may need to use:
+  $ minikube service {{ include "todo-chatbot.fullname" . }}-backend --url
+{{- else if eq .Values.backend.service.type "LoadBalancer" }}
+  NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+
+  Watch the status with:
+  $ kubectl get svc {{ include "todo-chatbot.fullname" . }}-backend -w
+{{- end }}
+{{- end }}
+
+DEPLOYMENT STATUS:
+
+Check pod status:
+  $ kubectl get pods -l app.kubernetes.io/name={{ include "todo-chatbot.name" . }}
+
+Check deployment status:
+  $ kubectl get deployments -l app.kubernetes.io/name={{ include "todo-chatbot.name" . }}
+
+Check service status:
+  $ kubectl get services -l app.kubernetes.io/name={{ include "todo-chatbot.name" . }}
+
+View logs:
+  Frontend: $ kubectl logs -l app.kubernetes.io/component=frontend
+  Backend:  $ kubectl logs -l app.kubernetes.io/component=backend
+
+SCALING:
+
+Scale backend replicas:
+  $ helm upgrade {{ .Release.Name }} {{ .Chart.Name }} --set backend.replicaCount=4
+
+Scale frontend replicas:
+  $ helm upgrade {{ .Release.Name }} {{ .Chart.Name }} --set frontend.replicaCount=2
+
+TROUBLESHOOTING:
+
+If pods are not starting:
+  $ kubectl describe pod <pod-name>
+  $ kubectl logs <pod-name>
+
+If services are not accessible:
+  $ kubectl get endpoints
+  $ kubectl get events --sort-by='.lastTimestamp'
+
+For more information, see:
+  - Quickstart: specs/004-k8s-deployment/quickstart.md
+  - Deployment Guide: deployment/CLAUDE.md
+
+=============================================================================

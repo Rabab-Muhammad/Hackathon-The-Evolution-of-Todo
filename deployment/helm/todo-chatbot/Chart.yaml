@@ -1,0 +1,17 @@
+apiVersion: v2
+name: todo-chatbot
+description: A Helm chart for deploying the AI-powered Todo Chatbot application to Kubernetes
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - todo
+  - chatbot
+  - ai
+  - fastapi
+  - nextjs
+maintainers:
+  - name: Claude Code
+    email: noreply@anthropic.com
+sources:
+  - https://github.com/anthropics/evolution-of-todo

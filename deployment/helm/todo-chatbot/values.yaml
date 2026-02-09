@@ -1,0 +1,100 @@
+# Default values for todo-chatbot Helm chart
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Global configuration
+global:
+  environment: development
+
+# Frontend configuration
+frontend:
+  enabled: true
+
+  image:
+    repository: todo-chatbot-frontend
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  replicaCount: 1
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+
+  service:
+    type: NodePort
+    port: 3000
+    nodePort: 30080
+
+  env:
+    NEXT_PUBLIC_API_URL: http://localhost:30081
+
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 3
+
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 3
+
+# Backend configuration
+backend:
+  enabled: true
+
+  image:
+    repository: todo-chatbot-backend
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  replicaCount: 2
+
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+
+  service:
+    type: NodePort
+    port: 8000
+    nodePort: 30081
+
+  env:
+    ENVIRONMENT: development
+    LOG_LEVEL: INFO
+
+  secrets:
+    # REQUIRED: Must be provided in values-dev.yaml or via --set
+    DATABASE_URL: "postgresql://neondb_owner:npg_mPc1WIXpQ2rh@ep-nameless-breeze-a15enaab-pooler.ap-southeast-1.aws.neon.tech/student?sslmode=require&channel_binding=require"
+    BETTER_AUTH_SECRET: "NhP9UYda5BtkbVuqQDYTFv5lRNNQUzgy"
+    NEXT_PUBLIC_OPENROUTER_KEY: "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"
+
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 3
+
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 3

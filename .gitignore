@@ -71,5 +71,16 @@ next-env.d.ts
 frontend/.env.local
 backend/.env
 
+# Phase IV: Kubernetes Deployment
+deployment/helm/todo-chatbot/values-dev.yaml
+deployment/helm/todo-chatbot/values-staging.yaml
+deployment/helm/todo-chatbot/values-prod.yaml
+*.secret.yaml
+deployment/secrets/
+deployment/.minikube/
+deployment/kubeconfig*
+deployment/deployment-logs/
+deployment/*.deployment.log
+
 # Don't ignore frontend lib folder (important!)
  !frontend/src/lib/

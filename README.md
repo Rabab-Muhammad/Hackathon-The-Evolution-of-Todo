@@ -71,7 +71,7 @@ This project demonstrates the evolution of a simple todo application through thr
 
 ---
 
-### **Phase III: AI-Powered Chatbot** 🚀 Current Phase
+### **Phase III: AI-Powered Chatbot** ✅ Complete
 **Goal**: Natural language task management via AI chatbot
 
 **Technology Stack**:
@@ -129,7 +129,85 @@ This project demonstrates the evolution of a simple todo application through thr
 
 ---
 
-## 🎯 Current Phase: III - AI-Powered Todo Chatbot
+### **Phase IV: Cloud-Native Kubernetes Deployment** 🚀 Current Phase
+**Goal**: Deploy AI-powered chatbot to local Kubernetes cluster (Minikube)
+
+**Technology Stack**:
+- **Containerization**: Docker with multi-stage builds
+- **Orchestration**: Kubernetes (Minikube for local)
+- **Package Manager**: Helm 3+
+- **Base Images**: node:20-alpine (frontend), python:3.11-slim (backend)
+- **Service Exposure**: NodePort (30080 frontend, 30081 backend)
+
+**Key Features**:
+- 🐳 **Multi-stage Docker Builds**: Optimized images (150-220MB)
+- ☸️ **Helm Charts**: Parameterized Kubernetes deployment
+- 🔧 **Configuration Management**: ConfigMaps and Secrets
+- 📊 **Health Checks**: Liveness and readiness probes
+- 🔄 **Horizontal Scaling**: Configurable replica counts
+- 🔐 **Security**: Non-root containers, no hardcoded secrets
+- 📦 **Stateless Architecture**: External database, ephemeral pods
+
+**Architecture Highlights**:
+
+1. **Container Images**
+   - Frontend: Next.js standalone output (~150-200MB)
+   - Backend: FastAPI with minimal dependencies (~180-220MB)
+   - Non-root users (UID 1001) for security
+   - Multi-stage builds for optimal size
+
+2. **Kubernetes Resources**
+   - Deployments: Frontend (1 replica), Backend (2 replicas)
+   - Services: NodePort for local access
+   - ConfigMaps: Non-sensitive configuration
+   - Secrets: DATABASE_URL, BETTER_AUTH_SECRET, API keys
+
+3. **Helm Chart Structure**
+   - Single chart for both applications
+   - Environment-specific values files (dev, prod)
+   - Template helpers for consistency
+   - Post-install instructions
+
+4. **Deployment Scripts**
+   - `build-images.sh`: Build container images
+   - `deploy.sh`: Deploy to Minikube with Helm
+   - `verify.sh`: Verify deployment health
+   - `scale.sh`: Scale replicas dynamically
+
+**Quick Start (Minikube)**:
+```bash
+# Prerequisites: Docker, Minikube, Helm, kubectl
+
+# Start Minikube
+minikube start --cpus=2 --memory=4096
+
+# Configure Docker to use Minikube's daemon
+eval $(minikube docker-env)
+
+# Build images
+cd deployment/scripts
+./build-images.sh
+
+# Create values-dev.yaml with your secrets
+cp ../helm/todo-chatbot/values-dev.yaml.example ../helm/todo-chatbot/values-dev.yaml
+# Edit values-dev.yaml with DATABASE_URL, BETTER_AUTH_SECRET, OPENROUTER_KEY
+
+# Deploy to Minikube
+./deploy.sh
+
+# Verify deployment
+./verify.sh
+
+# Access application
+# Frontend: http://localhost:30080
+# Backend: http://localhost:30081
+```
+
+**Location**: `deployment/` + `specs/004-k8s-deployment/`
+
+---
+
+## 🎯 Current Phase: IV - Cloud-Native Kubernetes Deployment
 
 AI-powered todo application with natural language interface using OpenAI ChatKit, OpenRouter, and MCP tools.
 
